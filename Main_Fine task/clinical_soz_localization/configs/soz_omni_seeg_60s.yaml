@@ -1,0 +1,77 @@
+
+data:
+
+  manifest_csv: "/home/ubuntu/IJAZ/SEEG datast/pretrainingdataset/SEEG-omnidtaset/derivatives/datasplit/omni_seeg_soz_segment_60s_manifest.csv"
+
+  omni_root: "/home/ubuntu/IJAZ/SEEG datast/pretrainingdataset/SEEG-omnidtaset"
+
+  context_sec: 60
+
+  patch_sec: 1
+
+  target_fs: 256
+
+  max_channels: 128
+
+  task: "channel_level_soz_localization"
+
+
+
+model:
+
+  d_model: 192
+
+  temporal_layers: 3
+
+  channel_layers: 2
+
+  n_heads: 6
+
+  dim_feedforward: 768
+
+  dropout: 0.1
+
+  t_align: 8
+
+  f_align: 128
+
+  f_max: 128.0
+
+  conv_channels: 24
+
+  num_classes: 2
+
+
+
+train:
+
+  pretrained_checkpoint: "/home/ubuntu/IJAZ/SEEG datast/pretrainingdataset/runs/scale_aligned_brant_edf_stream_real/final_pretrained.pt"
+
+  epochs: 30
+
+  batch_size: 4
+
+  backbone_lr: 1.0e-6
+
+  head_lr: 1.0e-4
+
+  weight_decay: 0.001
+
+  grad_clip: 1.0
+
+  amp: true
+
+  num_workers: 0
+
+  seed: 42
+
+  out_dir: "/home/ubuntu/IJAZ/SEEG datast/pretrainingdataset/SEEG-omnidtaset/runs_clinical_soz/sa_brant_seeg_omni_soz_60s"
+
+
+
+evaluation:
+
+  threshold_selection: "validation_balanced_accuracy"
+
+  aggregate_by_channel: "mean_probability"
+
